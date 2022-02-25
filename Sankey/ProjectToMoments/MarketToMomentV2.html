@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>BP22 Projects</title>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+//This is showdown.min.js
+
+(function(){function a(a){"use strict";var b={omitExtraWLInCodeBlocks:{"default":!1,describe:"Omit the default extra whiteline added to code blocks",type:"boolean"},noHeaderId:{"default":!1,describe:"Turn on/off generated header id",type:"boolean"},prefixHeaderId:{"default":!1,describe:"Specify a prefix to generated header ids",type:"string"},headerLevelStart:{"default":!1,describe:"The header blocks level start",type:"integer"},parseImgDimensions:{"default":!1,describe:"Turn on/off image dimension parsing",type:"boolean"},simplifiedAutoLink:{"default":!1,describe:"Turn on/off GFM autolink style",type:"boolean"},literalMidWordUnderscores:{"default":!1,describe:"Parse midword underscores as literal underscores",type:"boolean"},strikethrough:{"default":!1,describe:"Turn on/off strikethrough support",type:"boolean"},tables:{"default":!1,describe:"Turn on/off tables support",type:"boolean"},tablesHeaderId:{"default":!1,describe:"Add an id to table headers",type:"boolean"},ghCodeBlocks:{"default":!0,describe:"Turn on/off GFM fenced code blocks support",type:"boolean"},tasklists:{"default":!1,describe:"Turn on/off GFM tasklist support",type:"boolean"},smoothLivePreview:{"default":!1,describe:"Prevents weird effects in live previews due to incomplete input",type:"boolean"}};if(a===!1)return JSON.parse(JSON.stringify(b));var c={};for(var d in b)b.hasOwnProperty(d)&&(c[d]=b[d]["default"]);return c}function b(a,b){"use strict";var c=b?"Error in "+b+" extension->":"Error in unnamed extension",e={valid:!0,error:""};d.helper.isArray(a)||(a=[a]);for(var f=0;f<a.length;++f){var g=c+" sub-extension "+f+": ",h=a[f];if("object"!=typeof h)return e.valid=!1,e.error=g+"must be an object, but "+typeof h+" given",e;if(!d.helper.isString(h.type))return e.valid=!1,e.error=g+'property "type" must be a string, but '+typeof h.type+" given",e;var i=h.type=h.type.toLowerCase();if("language"===i&&(i=h.type="lang"),"html"===i&&(i=h.type="output"),"lang"!==i&&"output"!==i)return e.valid=!1,e.error=g+"type "+i+' is not recognized. Valid values: "lang" or "output"',e;if(h.filter){if("function"!=typeof h.filter)return e.valid=!1,e.error=g+'"filter" must be a function, but '+typeof h.filter+" given",e}else{if(!h.regex)return e.valid=!1,e.error=g+'extensions must define either a "regex" property or a "filter" method',e;if(d.helper.isString(h.regex)&&(h.regex=new RegExp(h.regex,"g")),!h.regex instanceof RegExp)return e.valid=!1,e.error=g+'"regex" property must either be a string or a RegExp object, but '+typeof h.regex+" given",e;if(d.helper.isUndefined(h.replace))return e.valid=!1,e.error=g+'"regex" extensions must implement a replace string or function',e}if(d.helper.isUndefined(h.filter)&&d.helper.isUndefined(h.regex))return e.valid=!1,e.error=g+"output extensions must define a filter property",e}return e}function c(a,b){"use strict";var c=b.charCodeAt(0);return"~E"+c+"E"}var d={},e={},f={},g=a(!0),h={github:{omitExtraWLInCodeBlocks:!0,prefixHeaderId:"user-content-",simplifiedAutoLink:!0,literalMidWordUnderscores:!0,strikethrough:!0,tables:!0,tablesHeaderId:!0,ghCodeBlocks:!0,tasklists:!0},vanilla:a(!0)};d.helper={},d.extensions={},d.setOption=function(a,b){"use strict";return g[a]=b,this},d.getOption=function(a){"use strict";return g[a]},d.getOptions=function(){"use strict";return g},d.resetOptions=function(){"use strict";g=a(!0)},d.setFlavor=function(a){"use strict";if(h.hasOwnProperty(a)){var b=h[a];for(var c in b)b.hasOwnProperty(c)&&(g[c]=b[c])}},d.getDefaultOptions=function(b){"use strict";return a(b)},d.subParser=function(a,b){"use strict";if(d.helper.isString(a)){if("undefined"==typeof b){if(e.hasOwnProperty(a))return e[a];throw Error("SubParser named "+a+" not registered!")}e[a]=b}},d.extension=function(a,c){"use strict";if(!d.helper.isString(a))throw Error("Extension 'name' must be a string");if(a=d.helper.stdExtName(a),d.helper.isUndefined(c)){if(!f.hasOwnProperty(a))throw Error("Extension named "+a+" is not registered!");return f[a]}"function"==typeof c&&(c=c()),d.helper.isArray(c)||(c=[c]);var e=b(c,a);if(!e.valid)throw Error(e.error);f[a]=c},d.getAllExtensions=function(){"use strict";return f},d.removeExtension=function(a){"use strict";delete f[a]},d.resetExtensions=function(){"use strict";f={}},d.validateExtension=function(a){"use strict";var c=b(a,null);return c.valid?!0:(console.warn(c.error),!1)},d.hasOwnProperty("helper")||(d.helper={}),d.helper.isString=function(a){"use strict";return"string"==typeof a||a instanceof String},d.helper.forEach=function(a,b){"use strict";if("function"==typeof a.forEach)a.forEach(b);else for(var c=0;c<a.length;c++)b(a[c],c,a)},d.helper.isArray=function(a){"use strict";return a.constructor===Array},d.helper.isUndefined=function(a){"use strict";return"undefined"==typeof a},d.helper.stdExtName=function(a){"use strict";return a.replace(/[_-]||\s/g,"").toLowerCase()},d.helper.escapeCharactersCallback=c,d.helper.escapeCharacters=function(a,b,d){"use strict";var e="(["+b.replace(/([\[\]\\])/g,"\\$1")+"])";d&&(e="\\\\"+e);var f=new RegExp(e,"g");return a=a.replace(f,c)},d.helper.isUndefined(console)&&(console={warn:function(a){"use strict";alert(a)},log:function(a){"use strict";alert(a)}}),d.Converter=function(a){"use strict";function c(){a=a||{};for(var b in g)g.hasOwnProperty(b)&&(k[b]=g[b]);if("object"!=typeof a)throw Error("Converter expects the passed parameter to be an object, but "+typeof a+" was passed instead.");for(var c in a)a.hasOwnProperty(c)&&(k[c]=a[c]);k.extensions&&d.helper.forEach(k.extensions,i)}function i(a,c){if(c=c||null,d.helper.isString(a)){if(a=d.helper.stdExtName(a),c=a,d.extensions[a])return console.warn("DEPRECATION WARNING: "+a+" is an old extension that uses a deprecated loading method.Please inform the developer that the extension should be updated!"),void j(d.extensions[a],a);if(d.helper.isUndefined(f[a]))throw Error('Extension "'+a+'" could not be loaded. It was either not found or is not a valid extension.');a=f[a]}"function"==typeof a&&(a=a()),d.helper.isArray(a)||(a=[a]);var e=b(a,c);if(!e.valid)throw Error(e.error);for(var g=0;g<a.length;++g)switch(a[g].type){case"lang":l.push(a[g]);break;case"output":m.push(a[g]);break;default:throw Error("Extension loader error: Type unrecognized!!!")}}function j(a,c){"function"==typeof a&&(a=a(new d.Converter)),d.helper.isArray(a)||(a=[a]);var e=b(a,c);if(!e.valid)throw Error(e.error);for(var f=0;f<a.length;++f)switch(a[f].type){case"lang":l.push(a[f]);break;case"output":m.push(a[f]);break;default:throw Error("Extension loader error: Type unrecognized!!!")}}var k={},l=[],m=[],n=["githubCodeBlocks","hashHTMLBlocks","stripLinkDefinitions","blockGamut","unescapeSpecialChars"];c(),this.makeHtml=function(a){if(!a)return a;var b={gHtmlBlocks:[],gUrls:{},gTitles:{},gDimensions:{},gListLevel:0,hashLinkCounts:{},langExtensions:l,outputModifiers:m,converter:this};a=a.replace(/~/g,"~T"),a=a.replace(/\$/g,"~D"),a=a.replace(/\r\n/g,"\n"),a=a.replace(/\r/g,"\n"),a="\n\n"+a+"\n\n",a=d.subParser("detab")(a,k,b),a=d.subParser("stripBlankLines")(a,k,b),d.helper.forEach(l,function(c){a=d.subParser("runExtension")(c,a,k,b)});for(var c=0;c<n.length;++c){var f=n[c];a=e[f](a,k,b)}return a=a.replace(/~D/g,"$$"),a=a.replace(/~T/g,"~"),d.helper.forEach(m,function(c){a=d.subParser("runExtension")(c,a,k,b)}),a},this.setOption=function(a,b){k[a]=b},this.getOption=function(a){return k[a]},this.getOptions=function(){return k},this.addExtension=function(a,b){b=b||null,i(a,b)},this.useExtension=function(a){i(a)},this.setFlavor=function(a){if(h.hasOwnProperty(a)){var b=h[a];for(var c in b)b.hasOwnProperty(c)&&(k[c]=b[c])}},this.removeExtension=function(a){d.helper.isArray(a)||(a=[a]);for(var b=0;b<a.length;++b){for(var c=a[b],e=0;e<l.length;++e)l[e]===c&&l[e].splice(e,1);for(var f=0;f<m.length;++e)m[f]===c&&m[f].splice(e,1)}},this.getAllExtensions=function(){return{language:l,output:m}}},d.subParser("anchors",function(a,b,c){"use strict";var e=function(a,b,e,f,g,h,i,j){d.helper.isUndefined(j)&&(j=""),a=b;var k=e,l=f.toLowerCase(),m=g,n=j;if(!m)if(l||(l=k.toLowerCase().replace(/ ?\n/g," ")),m="#"+l,d.helper.isUndefined(c.gUrls[l])){if(!(a.search(/\(\s*\)$/m)>-1))return a;m=""}else m=c.gUrls[l],d.helper.isUndefined(c.gTitles[l])||(n=c.gTitles[l]);m=d.helper.escapeCharacters(m,"*_",!1);var o='<a href="'+m+'"';return""!==n&&null!==n&&(n=n.replace(/"/g,"&quot;"),n=d.helper.escapeCharacters(n,"*_",!1),o+=' title="'+n+'"'),o+=">"+k+"</a>"};return a=a.replace(/(\[((?:\[[^\]]*\]|[^\[\]])*)\][ ]?(?:\n[ ]*)?\[(.*?)\])()()()()/g,e),a=a.replace(/(\[((?:\[[^\]]*\]|[^\[\]])*)\]\([ \t]*()<?(.*?(?:\(.*?\).*?)?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g,e),a=a.replace(/(\[([^\[\]]+)\])()()()()()/g,e)}),d.subParser("autoLinks",function(a,b){"use strict";function c(a,b){var c=d.subParser("unescapeSpecialChars")(b);return d.subParser("encodeEmailAddress")(c)}var e=/\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+)(?=\s|$)(?!["<>])/gi,f=/<(((https?|ftp|dict):\/\/|www\.)[^'">\s]+)>/gi,g=/\b(?:mailto:)?([-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)\b/gi,h=/<(?:mailto:)?([-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)>/gi;return a=a.replace(f,'<a href="$1">$1</a>'),a=a.replace(h,c),b.simplifiedAutoLink&&(a=a.replace(e,'<a href="$1">$1</a>'),a=a.replace(g,c)),a}),d.subParser("blockGamut",function(a,b,c){"use strict";a=d.subParser("blockQuotes")(a,b,c),a=d.subParser("headers")(a,b,c);var e=d.subParser("hashBlock")("<hr />",b,c);return a=a.replace(/^[ ]{0,2}([ ]?\*[ ]?){3,}[ \t]*$/gm,e),a=a.replace(/^[ ]{0,2}([ ]?\-[ ]?){3,}[ \t]*$/gm,e),a=a.replace(/^[ ]{0,2}([ ]?_[ ]?){3,}[ \t]*$/gm,e),a=d.subParser("lists")(a,b,c),a=d.subParser("codeBlocks")(a,b,c),a=d.subParser("tables")(a,b,c),a=d.subParser("hashHTMLBlocks")(a,b,c),a=d.subParser("paragraphs")(a,b,c)}),d.subParser("blockQuotes",function(a,b,c){"use strict";return a=a.replace(/((^[ \t]{0,3}>[ \t]?.+\n(.+\n)*\n*)+)/gm,function(a,e){var f=e;return f=f.replace(/^[ \t]*>[ \t]?/gm,"~0"),f=f.replace(/~0/g,""),f=f.replace(/^[ \t]+$/gm,""),f=d.subParser("githubCodeBlocks")(f,b,c),f=d.subParser("blockGamut")(f,b,c),f=f.replace(/(^|\n)/g,"$1  "),f=f.replace(/(\s*<pre>[^\r]+?<\/pre>)/gm,function(a,b){var c=b;return c=c.replace(/^  /gm,"~0"),c=c.replace(/~0/g,"")}),d.subParser("hashBlock")("<blockquote>\n"+f+"\n</blockquote>",b,c)})}),d.subParser("codeBlocks",function(a,b,c){"use strict";a+="~0";var e=/(?:\n\n|^)((?:(?:[ ]{4}|\t).*\n+)+)(\n*[ ]{0,3}[^ \t\n]|(?=~0))/g;return a=a.replace(e,function(a,e,f){var g=e,h=f,i="\n";return g=d.subParser("outdent")(g),g=d.subParser("encodeCode")(g),g=d.subParser("detab")(g),g=g.replace(/^\n+/g,""),g=g.replace(/\n+$/g,""),b.omitExtraWLInCodeBlocks&&(i=""),g="<pre><code>"+g+i+"</code></pre>",d.subParser("hashBlock")(g,b,c)+h}),a=a.replace(/~0/,"")}),d.subParser("codeSpans",function(a){"use strict";return a=a.replace(/(<code[^><]*?>)([^]*?)<\/code>/g,function(a,b,c){return c=c.replace(/^([ \t]*)/g,""),c=c.replace(/[ \t]*$/g,""),c=d.subParser("encodeCode")(c),b+c+"</code>"}),a=a.replace(/(^|[^\\])(`+)([^\r]*?[^`])\2(?!`)/gm,function(a,b,c,e){var f=e;return f=f.replace(/^([ \t]*)/g,""),f=f.replace(/[ \t]*$/g,""),f=d.subParser("encodeCode")(f),b+"<code>"+f+"</code>"})}),d.subParser("detab",function(a){"use strict";return a=a.replace(/\t(?=\t)/g,"    "),a=a.replace(/\t/g,"~A~B"),a=a.replace(/~B(.+?)~A/g,function(a,b){for(var c=b,d=4-c.length%4,e=0;d>e;e++)c+=" ";return c}),a=a.replace(/~A/g,"    "),a=a.replace(/~B/g,"")}),d.subParser("encodeAmpsAndAngles",function(a){"use strict";return a=a.replace(/&(?!#?[xX]?(?:[0-9a-fA-F]+|\w+);)/g,"&amp;"),a=a.replace(/<(?![a-z\/?\$!])/gi,"&lt;")}),d.subParser("encodeBackslashEscapes",function(a){"use strict";return a=a.replace(/\\(\\)/g,d.helper.escapeCharactersCallback),a=a.replace(/\\([`*_{}\[\]()>#+-.!])/g,d.helper.escapeCharactersCallback)}),d.subParser("encodeCode",function(a){"use strict";return a=a.replace(/&/g,"&amp;"),a=a.replace(/</g,"&lt;"),a=a.replace(/>/g,"&gt;"),a=d.helper.escapeCharacters(a,"*_{}[]\\",!1)}),d.subParser("encodeEmailAddress",function(a){"use strict";var b=[function(a){return"&#"+a.charCodeAt(0)+";"},function(a){return"&#x"+a.charCodeAt(0).toString(16)+";"},function(a){return a}];return a="mailto:"+a,a=a.replace(/./g,function(a){if("@"===a)a=b[Math.floor(2*Math.random())](a);else if(":"!==a){var c=Math.random();a=c>.9?b[2](a):c>.45?b[1](a):b[0](a)}return a}),a='<a href="'+a+'">'+a+"</a>",a=a.replace(/">.+:/g,'">')}),d.subParser("escapeSpecialCharsWithinTagAttributes",function(a){"use strict";var b=/(<[a-z\/!$]("[^"]*"|'[^']*'|[^'">])*>|<!(--.*?--\s*)+>)/gi;return a=a.replace(b,function(a){var b=a.replace(/(.)<\/?code>(?=.)/g,"$1`");return b=d.helper.escapeCharacters(b,"\\`*_",!1)})}),d.subParser("githubCodeBlocks",function(a,b,c){"use strict";return b.ghCodeBlocks?(a+="~0",a=a.replace(/(?:^|\n)```(.*)\n([\s\S]*?)\n```/g,function(a,e,f){var g=b.omitExtraWLInCodeBlocks?"":"\n";return f=d.subParser("encodeCode")(f),f=d.subParser("detab")(f),f=f.replace(/^\n+/g,""),f=f.replace(/\n+$/g,""),f="<pre><code"+(e?' class="'+e+" language-"+e+'"':"")+">"+f+g+"</code></pre>",d.subParser("hashBlock")(f,b,c)}),a=a.replace(/~0/,"")):a}),d.subParser("hashBlock",function(a,b,c){"use strict";return a=a.replace(/(^\n+|\n+$)/g,""),"\n\n~K"+(c.gHtmlBlocks.push(a)-1)+"K\n\n"}),d.subParser("hashElement",function(a,b,c){"use strict";return function(a,b){var d=b;return d=d.replace(/\n\n/g,"\n"),d=d.replace(/^\n/,""),d=d.replace(/\n+$/g,""),d="\n\n~K"+(c.gHtmlBlocks.push(d)-1)+"K\n\n"}}),d.subParser("hashHTMLBlocks",function(a,b,c){"use strict";return a=a.replace(/\n/g,"\n\n"),a=a.replace(/^(<(p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|ins|del)\b[^\r]*?\n<\/\2>[ \t]*(?=\n+))/gm,d.subParser("hashElement")(a,b,c)),a=a.replace(/^(<(p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|style|section|header|footer|nav|article|aside|address|audio|canvas|figure|hgroup|output|video)\b[^\r]*?<\/\2>[ \t]*(?=\n+)\n)/gm,d.subParser("hashElement")(a,b,c)),a=a.replace(/(\n[ ]{0,3}(<(hr)\b([^<>])*?\/?>)[ \t]*(?=\n{2,}))/g,d.subParser("hashElement")(a,b,c)),a=a.replace(/(\n\n[ ]{0,3}<!(--[^\r]*?--\s*)+>[ \t]*(?=\n{2,}))/g,d.subParser("hashElement")(a,b,c)),a=a.replace(/(?:\n\n)([ ]{0,3}(?:<([?%])[^\r]*?\2>)[ \t]*(?=\n{2,}))/g,d.subParser("hashElement")(a,b,c)),a=a.replace(/\n\n/g,"\n")}),d.subParser("headers",function(a,b,c){"use strict";function e(a){var b,e=a.replace(/[^\w]/g,"").toLowerCase();return c.hashLinkCounts[e]?b=e+"-"+c.hashLinkCounts[e]++:(b=e,c.hashLinkCounts[e]=1),f===!0&&(f="section"),d.helper.isString(f)?f+b:b}var f=b.prefixHeaderId,g=isNaN(parseInt(b.headerLevelStart))?1:parseInt(b.headerLevelStart),h=b.smoothLivePreview?/^(.+)[ \t]*\n={2,}[ \t]*\n+/gm:/^(.+)[ \t]*\n=+[ \t]*\n+/gm,i=b.smoothLivePreview?/^(.+)[ \t]*\n-{2,}[ \t]*\n+/gm:/^(.+)[ \t]*\n-+[ \t]*\n+/gm;return a=a.replace(h,function(a,f){var h=d.subParser("spanGamut")(f,b,c),i=b.noHeaderId?"":' id="'+e(f)+'"',j=g,k="<h"+j+i+">"+h+"</h"+j+">";return d.subParser("hashBlock")(k,b,c)}),a=a.replace(i,function(a,f){var h=d.subParser("spanGamut")(f,b,c),i=b.noHeaderId?"":' id="'+e(f)+'"',j=g+1,k="<h"+j+i+">"+h+"</h"+j+">";return d.subParser("hashBlock")(k,b,c)}),a=a.replace(/^(#{1,6})[ \t]*(.+?)[ \t]*#*\n+/gm,function(a,f,h){var i=d.subParser("spanGamut")(h,b,c),j=b.noHeaderId?"":' id="'+e(h)+'"',k=g-1+f.length,l="<h"+k+j+">"+i+"</h"+k+">";return d.subParser("hashBlock")(l,b,c)})}),d.subParser("images",function(a,b,c){"use strict";function e(a,b,e,f,g,h,i,j){var k=c.gUrls,l=c.gTitles,m=c.gDimensions;if(e=e.toLowerCase(),j||(j=""),""===f||null===f){if((""===e||null===e)&&(e=b.toLowerCase().replace(/ ?\n/g," ")),f="#"+e,d.helper.isUndefined(k[e]))return a;f=k[e],d.helper.isUndefined(l[e])||(j=l[e]),d.helper.isUndefined(m[e])||(g=m[e].width,h=m[e].height)}b=b.replace(/"/g,"&quot;"),b=d.helper.escapeCharacters(b,"*_",!1),f=d.helper.escapeCharacters(f,"*_",!1);var n='<img src="'+f+'" alt="'+b+'"';return j&&(j=j.replace(/"/g,"&quot;"),j=d.helper.escapeCharacters(j,"*_",!1),n+=' title="'+j+'"'),g&&h&&(g="*"===g?"auto":g,h="*"===h?"auto":h,n+=' width="'+g+'"',n+=' height="'+h+'"'),n+=" />"}var f=/!\[(.*?)]\s?\([ \t]*()<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(['"])(.*?)\6[ \t]*)?\)/g,g=/!\[(.*?)][ ]?(?:\n[ ]*)?\[(.*?)]()()()()()/g;return a=a.replace(g,e),a=a.replace(f,e)}),d.subParser("italicsAndBold",function(a,b){"use strict";return b.literalMidWordUnderscores?(a=a.replace(/(^|\s|>|\b)__(?=\S)([^]+?)__(?=\b|<|\s|$)/gm,"$1<strong>$2</strong>"),a=a.replace(/(^|\s|>|\b)_(?=\S)([^]+?)_(?=\b|<|\s|$)/gm,"$1<em>$2</em>"),a=a.replace(/\*\*(?=\S)([^]+?)\*\*/g,"<strong>$1</strong>"),a=a.replace(/\*(?=\S)([^]+?)\*/g,"<em>$1</em>")):(a=a.replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g,"<strong>$2</strong>"),a=a.replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g,"<em>$2</em>")),a}),d.subParser("lists",function(a,b,c){"use strict";function e(a,e){c.gListLevel++,a=a.replace(/\n{2,}$/,"\n"),a+="~0";var f=/(\n)?(^[ \t]*)([*+-]|\d+[.])[ \t]+((\[(x| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(~0|\2([*+-]|\d+[.])[ \t]+))/gm,g=/\n[ \t]*\n(?!~0)/.test(a);return a=a.replace(f,function(a,e,f,h,i,j,k){k=k&&""!==k.trim();var l=d.subParser("outdent")(i,b,c),m="";return j&&b.tasklists&&(m=' class="task-list-item" style="list-style-type: none;"',l=l.replace(/^[ \t]*\[(x| )?]/m,function(){var a='<input type="checkbox" disabled style="margin: 0px 0.35em 0.25em -1.6em; vertical-align: middle;"';return k&&(a+=" checked"),a+=">"})),e||l.search(/\n{2,}/)>-1?(l=d.subParser("githubCodeBlocks")(l,b,c),l=d.subParser("blockGamut")(l,b,c)):(l=d.subParser("lists")(l,b,c),l=l.replace(/\n$/,""),l=g?d.subParser("paragraphs")(l,b,c):d.subParser("spanGamut")(l,b,c)),l="\n<li"+m+">"+l+"</li>\n"}),a=a.replace(/~0/g,""),c.gListLevel--,e&&(a=a.replace(/\s+$/,"")),a}function f(a,b,c){var d="ul"===b?/^ {0,2}\d+\.[ \t]/gm:/^ {0,2}[*+-][ \t]/gm,f=[],g="";if(-1!==a.search(d)){!function i(a){var f=a.search(d);-1!==f?(g+="\n\n<"+b+">"+e(a.slice(0,f),!!c)+"</"+b+">\n\n",b="ul"===b?"ol":"ul",d="ul"===b?/^ {0,2}\d+\.[ \t]/gm:/^ {0,2}[*+-][ \t]/gm,i(a.slice(f))):g+="\n\n<"+b+">"+e(a,!!c)+"</"+b+">\n\n"}(a);for(var h=0;h<f.length;++h);}else g="\n\n<"+b+">"+e(a,!!c)+"</"+b+">\n\n";return g}a+="~0";var g=/^(([ ]{0,3}([*+-]|\d+[.])[ \t]+)[^\r]+?(~0|\n{2,}(?=\S)(?![ \t]*(?:[*+-]|\d+[.])[ \t]+)))/gm;return c.gListLevel?a=a.replace(g,function(a,b,c){var d=c.search(/[*+-]/g)>-1?"ul":"ol";return f(b,d,!0)}):(g=/(\n\n|^\n?)(([ ]{0,3}([*+-]|\d+[.])[ \t]+)[^\r]+?(~0|\n{2,}(?=\S)(?![ \t]*(?:[*+-]|\d+[.])[ \t]+)))/gm,a=a.replace(g,function(a,b,c,d){var e=d.search(/[*+-]/g)>-1?"ul":"ol";return f(c,e)})),a=a.replace(/~0/,"")}),d.subParser("outdent",function(a){"use strict";return a=a.replace(/^(\t|[ ]{1,4})/gm,"~0"),a=a.replace(/~0/g,"")}),d.subParser("paragraphs",function(a,b,c){"use strict";a=a.replace(/^\n+/g,""),a=a.replace(/\n+$/g,"");for(var e=a.split(/\n{2,}/g),f=[],g=e.length,h=0;g>h;h++){var i=e[h];i.search(/~K(\d+)K/g)>=0?f.push(i):i.search(/\S/)>=0&&(i=d.subParser("spanGamut")(i,b,c),i=i.replace(/^([ \t]*)/g,"<p>"),i+="</p>",f.push(i))}for(g=f.length,h=0;g>h;h++)for(;f[h].search(/~K(\d+)K/)>=0;){var j=c.gHtmlBlocks[RegExp.$1];j=j.replace(/\$/g,"$$$$"),f[h]=f[h].replace(/~K\d+K/,j)}return f.join("\n\n")}),d.subParser("runExtension",function(a,b,c,d){"use strict";if(a.filter)b=a.filter(b,d.converter,c);else if(a.regex){var e=a.regex;!e instanceof RegExp&&(e=new RegExp(e,"g")),b=b.replace(e,a.replace)}return b}),d.subParser("spanGamut",function(a,b,c){"use strict";return a=d.subParser("codeSpans")(a,b,c),a=d.subParser("escapeSpecialCharsWithinTagAttributes")(a,b,c),a=d.subParser("encodeBackslashEscapes")(a,b,c),a=d.subParser("images")(a,b,c),a=d.subParser("anchors")(a,b,c),a=d.subParser("autoLinks")(a,b,c),a=d.subParser("encodeAmpsAndAngles")(a,b,c),a=d.subParser("italicsAndBold")(a,b,c),a=d.subParser("strikethrough")(a,b,c),a=a.replace(/  +\n/g," <br />\n")}),d.subParser("strikethrough",function(a,b){"use strict";return b.strikethrough&&(a=a.replace(/(?:~T){2}([^~]+)(?:~T){2}/g,"<del>$1</del>")),a}),d.subParser("stripBlankLines",function(a){"use strict";return a.replace(/^[ \t]+$/gm,"")}),d.subParser("stripLinkDefinitions",function(a,b,c){"use strict";var e=/^ {0,3}\[(.+)]:[ \t]*\n?[ \t]*<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=~0))/gm;return a+="~0",a=a.replace(e,function(a,e,f,g,h,i,j){return e=e.toLowerCase(),c.gUrls[e]=d.subParser("encodeAmpsAndAngles")(f),i?i+j:(j&&(c.gTitles[e]=j.replace(/"|'/g,"&quot;")),b.parseImgDimensions&&g&&h&&(c.gDimensions[e]={width:g,height:h}),"")}),a=a.replace(/~0/,"")}),d.subParser("tables",function(a,b,c){"use strict";var e=function(){var a,e={};return e.th=function(a,e){var f="";return a=a.trim(),""===a?"":(b.tableHeaderId&&(f=' id="'+a.replace(/ /g,"_").toLowerCase()+'"'),a=d.subParser("spanGamut")(a,b,c),e=e&&""!==e.trim()?' style="'+e+'"':"","<th"+f+e+">"+a+"</th>")},e.td=function(a,e){var f=d.subParser("spanGamut")(a.trim(),b,c);return e=e&&""!==e.trim()?' style="'+e+'"':"","<td"+e+">"+f+"</td>"},e.ths=function(){var a="",b=0,c=[].slice.apply(arguments[0]),d=[].slice.apply(arguments[1]);for(b;b<c.length;b+=1)a+=e.th(c[b],d[b])+"\n";return a},e.tds=function(){var a="",b=0,c=[].slice.apply(arguments[0]),d=[].slice.apply(arguments[1]);for(b;b<c.length;b+=1)a+=e.td(c[b],d[b])+"\n";return a},e.thead=function(){var a,b=[].slice.apply(arguments[0]),c=[].slice.apply(arguments[1]);return a="<thead>\n",a+="<tr>\n",a+=e.ths.apply(this,[b,c]),a+="</tr>\n",a+="</thead>\n"},e.tr=function(){var a,b=[].slice.apply(arguments[0]),c=[].slice.apply(arguments[1]);return a="<tr>\n",a+=e.tds.apply(this,[b,c]),a+="</tr>\n"},a=function(a){var b,c,d=0,f=a.split("\n"),g=[];for(d;d<f.length;d+=1){if(b=f[d],b.trim().match(/^[|].*[|]$/)){b=b.trim();var h=[],i=f[d+1].trim(),j=[],k=0;if(i.match(/^[|][-=|: ]+[|]$/))for(j=i.substring(1,i.length-1).split("|"),k=0;k<j.length;++k)j[k]=j[k].trim(),j[k].match(/^[:][-=| ]+[:]$/)?j[k]="text-align:center;":j[k].match(/^[-=| ]+[:]$/)?j[k]="text-align:right;":j[k].match(/^[:][-=| ]+$/)?j[k]="text-align:left;":j[k]="";if(h.push("<table>"),c=b.substring(1,b.length-1).split("|"),0===j.length)for(k=0;k<c.length;++k)j.push("text-align:left");if(h.push(e.thead.apply(this,[c,j])),b=f[++d],b.trim().match(/^[|][-=|: ]+[|]$/)){for(b=f[++d],h.push("<tbody>");b.trim().match(/^[|].*[|]$/);)b=b.trim(),h.push(e.tr.apply(this,[b.substring(1,b.length-1).split("|"),j])),b=f[++d];h.push("</tbody>"),h.push("</table>"),g.push(h.join("\n"));continue}b=f[--d]}g.push(b)}return g.join("\n")},{parse:a}};if(b.tables){var f=e();return f.parse(a)}return a}),d.subParser("unescapeSpecialChars",function(a){"use strict";return a=a.replace(/~E(\d+)E/g,function(a,b){var c=parseInt(b);return String.fromCharCode(c)})});var i=this;"undefined"!=typeof module&&module.exports?module.exports=d:"function"==typeof define&&define.amd?define("showdown",function(){"use strict";return d}):i.showdown=d}).call(this);
+
+ // this is highlight.pack.js
+
+ !function(e){"undefined"!=typeof exports?e(exports):(window.hljs=e({}),"function"==typeof define&&define.amd&&define("hljs",[],function(){return window.hljs}))}(function(e){function n(e){return e.replace(/&/gm,"&amp;").replace(/</gm,"&lt;").replace(/>/gm,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0==t.index}function a(e){return/^(no-?highlight|plain|text)$/i.test(e)}function i(e){var n,t,r,i=e.className+" ";if(i+=e.parentNode?e.parentNode.className:"",t=/\blang(?:uage)?-([\w-]+)\b/i.exec(i))return w(t[1])?t[1]:"no-highlight";for(i=i.split(/\s+/),n=0,r=i.length;r>n;n++)if(w(i[n])||a(i[n]))return i[n]}function o(e,n){var t,r={};for(t in e)r[t]=e[t];if(n)for(t in n)r[t]=n[t];return r}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3==i.nodeType?a+=i.nodeValue.length:1==i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!=r[0].offset?e[0].offset<r[0].offset?e:r:"start"==r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value)+'"'}f+="<"+t(e)+Array.prototype.map.call(e.attributes,r).join("")+">"}function u(e){f+="</"+t(e)+">"}function c(e){("start"==e.event?o:u)(e.node)}for(var s=0,f="",l=[];e.length||r.length;){var g=i();if(f+=n(a.substr(s,g[0].offset-s)),s=g[0].offset,g==e){l.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g==e&&g.length&&g[0].offset==s);l.reverse().forEach(o)}else"start"==g[0].event?l.push(g[0].node):l.pop(),c(g.splice(0,1)[0])}return f+n(a.substr(s))}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var u={},c=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");u[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?c("keyword",a.k):Object.keys(a.k).forEach(function(e){c(e,a.k[e])}),a.k=u}a.lR=t(a.l||/\b\w+\b/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),void 0===a.r&&(a.r=1),a.c||(a.c=[]);var s=[];a.c.forEach(function(e){e.v?e.v.forEach(function(n){s.push(o(e,n))}):s.push("self"==e?a:e)}),a.c=s,a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var f=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=f.length?t(f.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){for(var t=0;t<n.c.length;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function g(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function h(e,n,t,r){var a=r?"":E.classPrefix,i='<span class="'+a,o=t?"":"</span>";return i+=e+'">',i+n+o}function p(){if(!L.k)return n(y);var e="",t=0;L.lR.lastIndex=0;for(var r=L.lR.exec(y);r;){e+=n(y.substr(t,r.index-t));var a=g(L,r);a?(B+=a[1],e+=h(a[0],n(r[0]))):e+=n(r[0]),t=L.lR.lastIndex,r=L.lR.exec(y)}return e+n(y.substr(t))}function d(){var e="string"==typeof L.sL;if(e&&!x[L.sL])return n(y);var t=e?f(L.sL,y,!0,M[L.sL]):l(y,L.sL.length?L.sL:void 0);return L.r>0&&(B+=t.r),e&&(M[L.sL]=t.top),h(t.language,t.value,!1,!0)}function b(){return void 0!==L.sL?d():p()}function v(e,t){var r=e.cN?h(e.cN,"",!0):"";e.rB?(k+=r,y=""):e.eB?(k+=n(t)+r,y=""):(k+=r,y=t),L=Object.create(e,{parent:{value:L}})}function m(e,t){if(y+=e,void 0===t)return k+=b(),0;var r=o(t,L);if(r)return k+=b(),v(r,t),r.rB?0:t.length;var a=u(L,t);if(a){var i=L;i.rE||i.eE||(y+=t),k+=b();do L.cN&&(k+="</span>"),B+=L.r,L=L.parent;while(L!=a.parent);return i.eE&&(k+=n(t)),y="",a.starts&&v(a.starts,""),i.rE?0:t.length}if(c(t,L))throw new Error('Illegal lexeme "'+t+'" for mode "'+(L.cN||"<unnamed>")+'"');return y+=t,t.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,L=i||N,M={},k="";for(R=L;R!=N;R=R.parent)R.cN&&(k=h(R.cN,"",!0)+k);var y="",B=0;try{for(var C,j,I=0;;){if(L.t.lastIndex=I,C=L.t.exec(t),!C)break;j=m(t.substr(I,C.index-I),C[0]),I=C.index+j}for(m(t.substr(I)),R=L;R.parent;R=R.parent)R.cN&&(k+="</span>");return{r:B,value:k,language:e,top:L}}catch(O){if(-1!=O.message.indexOf("Illegal"))return{r:0,value:n(t)};throw O}}function l(e,t){t=t||E.languages||Object.keys(x);var r={r:0,value:n(e)},a=r;return t.forEach(function(n){if(w(n)){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}}),a.language&&(r.second_best=a),r}function g(e){return E.tabReplace&&(e=e.replace(/^((<[^>]+>|\t)+)/gm,function(e,n){return n.replace(/\t/g,E.tabReplace)})),E.useBR&&(e=e.replace(/\n/g,"<br>")),e}function h(e,n,t){var r=n?R[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function p(e){var n=i(e);if(!a(n)){var t;E.useBR?(t=document.createElementNS("http://www.w3.org/1999/xhtml","div"),t.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):t=e;var r=t.textContent,o=n?f(n,r,!0):l(r),s=u(t);if(s.length){var p=document.createElementNS("http://www.w3.org/1999/xhtml","div");p.innerHTML=o.value,o.value=c(s,u(p),r)}o.value=g(o.value),e.innerHTML=o.value,e.className=h(e.className,n,o.language),e.result={language:o.language,re:o.r},o.second_best&&(e.second_best={language:o.second_best.language,re:o.second_best.r})}}function d(e){E=o(E,e)}function b(){if(!b.called){b.called=!0;var e=document.querySelectorAll("pre code");Array.prototype.forEach.call(e,p)}}function v(){addEventListener("DOMContentLoaded",b,!1),addEventListener("load",b,!1)}function m(n,t){var r=x[n]=t(e);r.aliases&&r.aliases.forEach(function(e){R[e]=n})}function N(){return Object.keys(x)}function w(e){return e=e.toLowerCase(),x[e]||x[R[e]]}var E={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0},x={},R={};return e.highlight=f,e.highlightAuto=l,e.fixMarkup=g,e.highlightBlock=p,e.configure=d,e.initHighlighting=b,e.initHighlightingOnLoad=v,e.registerLanguage=m,e.listLanguages=N,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e});hljs.registerLanguage("javascript",function(e){return{aliases:["js"],k:{keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},c:[{cN:"pi",r:10,b:/^\s*['"]use (strict|asm)['"]/},e.ASM,e.QSM,{cN:"string",b:"`",e:"`",c:[e.BE,{cN:"subst",b:"\\$\\{",e:"\\}"}]},e.CLCM,e.CBCM,{cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{b:/</,e:/>\s*[);\]]/,r:0,sL:"xml"}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:/[A-Za-z$_][0-9A-Za-z$_]*/}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:[e.CLCM,e.CBCM]}],i:/\[|%/},{b:/\$[(.]/},{b:"\\."+e.IR,r:0},{bK:"import",e:"[;$]",k:"import from as",c:[e.ASM,e.QSM]},{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]}],i:/#/}});
+
+</script>
+
+<script>
+
+d3.sankey = function() {
+  var sankey = {},
+      nodeWidth = 24,
+      nodePadding = 8,
+      size = [1, 1],
+      nodes = [],
+      flows = [],
+      links = [],
+      linkDict = {},
+      dflows = [], //dynamic links
+      dlinks = [],
+      dlinkDict = {},
+      ky = 0;
+
+  sankey.nodeWidth = function(_) {
+    if (!arguments.length) {
+      return nodeWidth;
+    }
+    nodeWidth = +_;
+    return sankey;
+  };
+
+  sankey.nodePadding = function(_) {
+    if (!arguments.length) {
+      return nodePadding;
+    }
+    nodePadding = +_;
+    return sankey;
+  };
+
+  sankey.nodes = function(_) {
+    if (!arguments.length) {
+      return nodes;
+    }
+    nodes = _;
+    return sankey;
+  };
+
+  sankey.links = function(_) {
+    if (!arguments.length) {
+      return links;
+    }
+    links = _;
+    return sankey;
+  };
+
+  sankey.size = function(_) {
+    if (!arguments.length) {
+      return size;
+    }
+    size = _;
+    return sankey;
+  };
+
+  sankey.layout = function(iterations) {
+    computeNodeLinks();
+    computeNodeValues();
+    computeNodeBreadths();
+    computeNodeDepths(iterations);
+    computeLinkDepths();
+    return sankey;
+  };
+
+  sankey.relayout = function() {
+    computeLinkDepths();
+    computeDlinks();
+    return sankey;
+  };
+
+  sankey.link = function() {
+    var curvature = 0.5;
+
+    function link(d) {
+      var x0 = d.source.x + d.source.dx,
+          x1 = d.target.x,
+          xi = d3.interpolateNumber(x0, x1),
+          x2 = xi(curvature),
+          x3 = xi(1 - curvature),
+          y0 = d.source.y + d.sy + d.dy / 2,
+          y1 = d.target.y + d.ty + d.dy / 2;
+      return "M" + x0 + "," + y0 +
+             "C" + x2 + "," + y0 +
+             " " + x3 + "," + y1 +
+             " " + x1 + "," + y1;
+    }
+
+    link.curvature = function(_) {
+      if (!arguments.length) return curvature;
+      curvature = +_;
+      return link;
+    };
+
+    return link;
+  };
+
+  // Populate the sourceLinks and targetLinks for each node.
+  // Also, if the source and target are not objects, assume they are indices.
+  function computeNodeLinks() {
+    nodes.forEach(function(node) {
+      node.sourceLinks = [];
+      node.targetLinks = [];
+    });
+    links.forEach(function(link) {
+      var source = link.source,
+          target = link.target;
+      // if (typeof source === "number") source = link.source = nodes[link.source];
+      // if (typeof target === "number") target = link.target = nodes[link.target];
+      source.sourceLinks.push(link);
+      target.targetLinks.push(link);
+    });
+  }
+
+  // Compute the value (size) of each node by summing the associated links.
+  function computeNodeValues() {
+    nodes.forEach(function(node) {
+      node.value = Math.max(
+        d3.sum(node.sourceLinks, value),
+        d3.sum(node.targetLinks, value)
+      );
+    });
+  }
+
+  // Iteratively assign the breadth (x-position) for each node.
+  // Nodes are assigned the maximum breadth of incoming neighbors plus one;
+  // nodes with no incoming links are assigned breadth zero, while
+  // nodes with no outgoing links are assigned the maximum breadth.
+  function computeNodeBreadths() {
+      var remainingNodes = nodes,
+          nextNodes,
+          x = 0;
+
+      function pick_node(node) {
+          node.x = x;
+          node.dx = nodeWidth;
+          node.sourceLinks.forEach(push_if_didnt);
+      }
+
+      function push_if_didnt(link) {
+          if (nextNodes.indexOf(link.target) < 0) {
+              nextNodes.push(link.target);
+          }
+      }
+
+      while (remainingNodes.length) {
+          nextNodes = [];
+          remainingNodes.forEach(pick_node);
+          remainingNodes = nextNodes;
+          ++x;
+      }
+
+      //
+      moveSinksRight(x);
+      scaleNodeBreadths((size[0] - nodeWidth) / (x - 1));
+  }
+
+  function moveSourcesRight() {
+    nodes.forEach(function(node) {
+      if (!node.targetLinks.length) {
+        node.x = d3.min(node.sourceLinks, function(d) { return d.target.x; }) - 1;
+      }
+    });
+  }
+
+  function moveSinksRight(x) {
+    nodes.forEach(function(node) {
+      if (!node.sourceLinks.length) {
+        node.x = x - 1;
+      }
+    });
+  }
+
+  function scaleNodeBreadths(kx) {
+    nodes.forEach(function(node) {
+      node.x *= kx;
+    });
+  }
+
+  function computeNodeDepths(iterations) {
+    var nodesByBreadth = d3.nest()
+        .key(function(d) { return d.x; })
+        .sortKeys(d3.ascending)
+        .entries(nodes)
+        .map(function(d) { return d.values; });
+
+    //
+    initializeNodeDepth();
+    resolveCollisions();
+    for (var alpha = 1; iterations > 0; --iterations) {
+      relaxRightToLeft(alpha *= 0.99);
+      resolveCollisions();
+      relaxLeftToRight(alpha);
+      resolveCollisions();
+    }
+
+    function initializeNodeDepth() {
+      ky = d3.min(nodesByBreadth, function(nodes) {
+        return (size[1] - (nodes.length - 1) * nodePadding) / d3.sum(nodes, value);
+      });
+
+      nodesByBreadth.forEach(function(nodes) {
+        nodes.forEach(function(node, i) {
+          node.y = i;
+          node.dy = node.value * ky;
+        });
+      });
+
+      links.forEach(function(link) {
+        link.dy = link.value * ky;
+      });
+    }
+
+    function relaxLeftToRight(alpha) {
+      nodesByBreadth.forEach(function(nodes, breadth) {
+        nodes.forEach(function(node) {
+          if (node.targetLinks.length) {
+            var y = d3.sum(node.targetLinks, weightedSource) / d3.sum(node.targetLinks, value);
+            node.y += (y - center(node)) * alpha;
+          }
+        });
+      });
+
+      function weightedSource(link) {
+        return center(link.source) * link.value;
+      }
+    }
+
+    function relaxRightToLeft(alpha) {
+      nodesByBreadth.slice().reverse().forEach(function(nodes) {
+        nodes.forEach(function(node) {
+          if (node.sourceLinks.length) {
+            var y = d3.sum(node.sourceLinks, weightedTarget) / d3.sum(node.sourceLinks, value);
+            node.y += (y - center(node)) * alpha;
+          }
+        });
+      });
+
+      function weightedTarget(link) {
+        return center(link.target) * link.value;
+      }
+    }
+
+    function resolveCollisions() {
+      nodesByBreadth.forEach(function(nodes) {
+        var node,
+            dy,
+            y0 = 0,
+            n = nodes.length,
+            i;
+
+        // Push any overlapping nodes down.
+        nodes.sort(ascendingDepth);
+        for (i = 0; i < n; ++i) {
+          node = nodes[i];
+          dy = y0 - node.y;
+          if (dy > 0) node.y += dy;
+          y0 = node.y + node.dy + nodePadding;
+        }
+
+        // If the bottommost node goes outside the bounds, push it back up.
+        dy = y0 - nodePadding - size[1];
+        if (dy > 0) {
+          y0 = node.y -= dy;
+
+          // Push any overlapping nodes back up.
+          for (i = n - 2; i >= 0; --i) {
+            node = nodes[i];
+            dy = node.y + node.dy + nodePadding - y0;
+            if (dy > 0) node.y -= dy;
+            y0 = node.y;
+          }
+        }
+      });
+    }
+  }
+
+  function ascendingDepth(a, b) {
+    return a.y - b.y;
+  }
+
+  function computeLinkDepths() {
+    nodes.forEach(function(node) {
+      node.sourceLinks.sort(ascendingTargetDepth);
+      node.targetLinks.sort(ascendingSourceDepth);
+    });
+    nodes.forEach(function(node) {
+      var sy = 0, ty = 0;
+      node.sourceLinks.forEach(function(link) {
+        link.sy = sy;
+        sy += link.dy;
+      });
+      node.targetLinks.forEach(function(link) {
+        link.ty = ty;
+        ty += link.dy;
+      });
+    });
+  }
+
+  function ascendingSourceDepth(a, b) {
+    return a.source.y - b.source.y;
+  }
+
+  function ascendingTargetDepth(a, b) {
+    return a.target.y - b.target.y;
+  }
+
+  function center(node) {
+    return node.y + node.dy / 2;
+  }
+
+  function value(link) {
+    return link.value;
+  }
+
+  //////////////////////////////
+  // The Flow API
+  ////////////////////////////
+
+  //will modify linkDict, links, flows
+  sankey.flows = function(_) {
+    if (!arguments.length) return flows;
+    if (!nodes.length) console.error(
+      'sankey.nodes() must be called before flows(). ' +
+      'Or maybe matric has no positive value');
+    flows = _;
+    linkDict = {};
+
+    flows.forEach(function (f, ind) {
+
+      //normalize nodes in f.thru
+      f.thru = f.thru.map(function (n) {
+        if (typeof n === "object") {
+          return n;
+        } else if (typeof n === "number") {
+          return nodes[n];
+        } else if (typeof n === "string"){
+          return nodes.filter(function(node){
+            return node.name === n;
+          })[0];
+        } else {
+          console.error('not supported node type');
+          return null;
+        }
+      });
+
+      //build index in nodes, pointing back to f
+      f.thru.forEach(function (n) {
+        if (!n.flows){
+          n.flows = {};
+        }
+        n.flows[ind] = true;
+      });
+
+      //extract links
+      for (var i = 0; i < f.thru.length - 1; i++) {
+        var key = stPair(f.thru[i], f.thru[i + 1]);
+        if (linkDict[key]) {
+          linkDict[key].value += Number(f.value);
+          linkDict[key].flows.push(f);
+        } else {
+          linkDict[key] = {
+            source: f.thru[i],
+            target: f.thru[i + 1],
+            value: Number(f.value),
+            flows: [f],
+          };
+        }
+
+      }
+    });
+    nodes.forEach(function (n) {
+      var sets = n.flows;
+      n.flows = [];
+      for (var i in sets){
+        n.flows.push(flows[i]);
+      }
+    });
+
+    links = [];
+    for (var key in linkDict) {
+      var l = linkDict[key];
+      links.push(l);
+    }
+
+    return sankey;
+  };
+
+  //will modify dlinks
+  sankey.dflows = function(_) {
+    if (!arguments.length) {
+      return dflows;
+    }
+    dflows = _;
+    dlinkDict = {};
+    dflows.forEach(function (f) {
+      for (var i = 0; i < f.thru.length - 1; i++) {
+        var key = stPair(f.thru[i], f.thru[i + 1]);
+        if (dlinkDict[key]) {
+          dlinkDict[key].value += Number(f.value);
+        } else {
+          dlinkDict[key] = {
+            source: f.thru[i],
+            target: f.thru[i + 1],
+            value: Number(f.value),
+            sy: linkDict[key].sy,
+            ty: linkDict[key].ty,
+          };
+        }
+      }
+    });
+    dlinks = [];
+    for (var key in dlinkDict) {
+      var l = dlinkDict[key];
+      l.dy = l.value * ky;
+      dlinks.push(dlinkDict[key]);
+    }
+    this.relayout();
+    return sankey;
+  };
+
+  sankey.dlinks = function() {
+    return dlinks;
+  };
+
+  function stPair(s, t) {
+    if (typeof s === 'number') {
+      return nodes[s].name + '|' + nodes[t].name ;
+    } else if (typeof s === 'object') {
+      return s.name + '|' + t.name;
+    } else if (typeof s === 'string'){
+      return s + '|' + t;
+    } else {
+      console.error('wrong type');
+    }
+  }
+
+  //compute the starting and ending point (y) for each dynamic link
+  function computeDlinks() {
+    for (var k = dflows.length-1 ; k>=0; k--){
+      var f = dflows[k];
+      for (var i = 1; i < f.thru.length - 1; i++) {
+        var center, commonBot, commonTop, ddy0, ddy1, dsy1, dty0, dy0, dy1, sy1,
+          key0, key1, link0, link1, dlink0, dlink1, ty0;
+        key0 = stPair(f.thru[i - 1], f.thru[i]);
+        key1 = stPair(f.thru[i], f.thru[i + 1]);
+        link0 = linkDict[key0];
+        link1 = linkDict[key1];
+        dlink0 = dlinkDict[key0];
+        dlink1 = dlinkDict[key1];
+        ty0 = link0.ty;
+        dy0 = link0.dy;
+        sy1 = link1.sy;
+        dy1 = link1.dy;
+        ddy0 = dlink0.dy;
+        ddy1 = dlink1.dy;
+        // compute the ideal position of both links on two sides
+        commonTop = Math.max(ty0, sy1);
+        commonBot = Math.min(ty0 + dy0, sy1 + dy1);
+        center = (commonTop + commonBot) / 2;
+        dty0 = center - (ddy0 / 2);
+        dsy1 = center - (ddy1 / 2);
+        // limit the position
+        dty0 = Math.max(dty0, ty0);
+        dty0 = Math.min(dty0, ty0 + dy0 - ddy0);
+        dsy1 = Math.max(dsy1, sy1);
+        dsy1 = Math.min(dsy1, sy1 + dy1 - ddy1);
+        // set y
+        dlink0.ty = dty0;
+        dlink1.sy = dsy1;
+        if (!dlink0.sy){
+          dlink0.sy = link0.sy - (link0.ty - dlink0.ty);
+        }
+        dlink1.ty = link1.ty - (link1.sy - dlink1.sy);
+      }
+    }
+  }
+  return sankey;
+};
+
+
+</script>
+
+<script>
+  // this is sankey.driver.js
+
+/*global d3*/
+
+var SankeyDriver = function (){
+  var sankey = d3.sankey();
+  var formatNumber = d3.format(","); //(",.2f");
+  var color = d3.scale.category20c();
+  var graph, width, height;
+  var tooltips = [];
+  var tooltipEnable = true;
+  var tooltipContainer, tbody;
+
+  this.prepare = function (canvas, sz, margin) {
+    width = sz.width - margin.left - margin.right;
+    height= sz.height - margin.top - margin.bottom;
+
+    graph = canvas
+      .html('')
+      .append('svg')
+        .attr("width", sz.width)
+        .attr("height", sz.height)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    tooltipContainer = canvas
+      .append('div')
+        .attr('id', 'tooltip-container');
+
+    tbody = tooltipContainer
+      .append('table')
+        .attr('class', 'tooltip')
+      .append('tbody');
+  };
+
+  this.draw = function (inputdata) {
+
+    sankey
+      .nodeWidth(15)
+      .nodePadding(10)
+      .size([width, height]);
+
+    sankey.nodes(inputdata.nodes)
+      .flows(inputdata.flows)
+      .layout(32);
+
+    drawNode(sankey.nodes());
+    drawLink(sankey.links());
+
+    function drawNode(nodes) {
+      var group = graph.selectAll('g#node-group').data([0]);
+      group.enter().append('g').attr("id", "node-group");
+      var node = group.selectAll("g.node").data(nodes);
+      node.exit().remove();
+
+      var nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        .on("mouseover", funcMouseover)
+        .on("mouseout", funcMouseout)
+        .on('mousemove', funcMousemove)
+        .on('dblclick', funcTooltipToggle)
+        .call(d3.behavior.drag()
+          .origin(function (d) {
+            return d;
+          })
+          .on("dragstart", function () {
+            d3.event.sourceEvent.stopPropagation();
+            this.parentNode.appendChild(this);
+          })
+          .on("drag", function dragmove(d) {
+            d3.select(this).attr("transform",
+              "translate(" + (
+                d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
+              ) + "," + (
+                d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+              ) + ")");
+            sankey.relayout();
+            graph.select('g#normal').selectAll('path').attr("d", sankey.link());
+            graph.select('g#highlight').selectAll('path').attr("d", sankey.link());
+          })
+        );
+      nodeEnter.append("rect");//.append('title');
+      nodeEnter.append("text");
+
+      node
+        .attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+
+      node.select('rect')
+        .attr("height", function (d) {
+          return d.dy;
+        })
+        .attr("width", sankey.nodeWidth())
+        .style("fill", function (d) {
+          if (!d.color){
+            d.color = color(d.disp);
+          }
+          return d.color;
+        })
+        .style("stroke", function (d) {
+          return d3.rgb(d.color).darker(2);
+        });
+        // .select("title")
+        // .text(function (d) {
+        //   var text = formatNumber(d.value) + '\t' + d.disp;
+        //   return text;
+        // });
+
+      node.select("text")
+        .attr("x", -6)
+        .attr("y", function (d) {
+          return d.dy / 2;
+        })
+        .attr("dy", ".35em")
+        .attr("text-anchor", "end")
+        .attr("transform", null)
+        .text(function (d) {
+          return d.disp;
+        })
+        .filter(function (d) {
+          return d.x < width / 2;
+        })
+        .attr("x", 6 + sankey.nodeWidth())
+        .attr("text-anchor", "start");
+    }
+
+    function drawLink(data) {
+      var group = graph.selectAll('g#normal').data([0]);
+      group.enter().insert("g", ":first-child").attr('id', 'normal');
+      var link = group.selectAll('path.link').data(data);
+      link.exit().remove();
+
+      link.enter().append("path")
+        .attr("class", "link")
+        .on("mouseover", funcMouseover)
+        .on("mouseout", funcMouseout)
+        .on('mousemove', funcMousemove)
+        .on('dblclick', funcTooltipToggle);
+        // .append("title");
+
+      link
+        .attr("d", sankey.link())
+        .style("stroke-width", function (d) {
+          return Math.max(1, d.dy);
+        })
+        .sort(function (a, b) {
+          return b.dy - a.dy;
+        });
+
+      // link.select('title')
+      //   .text(function (d) {
+      //     var text = formatNumber(d.value) + '\t' +
+      //       d.source.disp + " → " + d.target.disp;
+      //     return text;
+      //   });
+    }
+
+    function drawDLink(data) {
+      return graph.insert("g", ":first-child")
+        .attr('id', 'highlight')
+        .selectAll('path')
+        .data(data)
+        .enter()
+        .append("path")
+          .attr("class", "link highlight")
+          .attr("d", sankey.link())
+          .style("stroke-width", function (d) {
+            return Math.max(1, d.dy);
+          })
+          .sort(function (a, b) {
+            return b.dy - a.dy;
+          });
+    }
+
+    function funcMouseover(d) {
+      //console.log(d);
+      // carlos
+      sankey.dflows(d.flows);
+      drawDLink(sankey.dlinks());
+      updateTooltip(d);
+      tooltipContainer.style('display', 'block');
+    }
+    function funcMouseout() {
+      graph.selectAll("g#highlight").remove();
+      tooltipContainer.style('display', 'none');
+    }
+    function funcMousemove() {
+      tooltipContainer
+        .style('top', d3.event.clientY + 'px')
+        .style('left', d3.event.clientX + 'px');
+    }
+    function funcTooltipToggle(d){
+      tooltipEnable = !tooltipEnable;
+      updateTooltip(d);
+    }
+
+    ///////////////////////
+    //// Tooltips
+
+    function colorDot(d){
+      return '<span style="background-color:'+ d.color +'"></span>';
+    }
+
+    sankey.nodes().forEach(function(n){
+      n.tooltip = {
+        name: colorDot(n) + n.disp,
+        value: formatNumber(n.value),
+        head: true,
+      };
+    });
+    sankey.links().forEach(function(l){
+      l.tooltip = {
+        name: colorDot(l.source) + l.source.disp +
+          " → " + colorDot(l.target) + l.target.disp,
+        value: formatNumber(l.value),
+        head: true,
+      };
+    });
+    sankey.flows().forEach(function(f){
+      var name = '';
+      f.thru.forEach(function (n, ind) {
+        if (ind !== 0) name += ' → ';
+        name += colorDot(n) + n.disp;
+      });
+      f.tooltip = {
+        name: name,
+        value: formatNumber(f.value),
+      };
+    });
+
+    //param d: data, could be node or link
+    function updateTooltip(d){
+
+      tooltips = [d.tooltip];
+      if (tooltipEnable){
+        d.flows.forEach(function(f){
+          tooltips.push(f.tooltip);
+        });
+      }
+
+      //no need to use D3
+      tbody.selectAll('*').remove();
+      tooltips.forEach(function(tip){
+        var tr = tbody.append('tr');
+        tr.append('td')
+          .attr('class', 'name')
+          .classed('head', 'head' in tip)
+          .html(tip.name);
+
+        tr.append('td')
+          .attr('class', 'value')
+          .classed('head', 'head' in tip)
+          .html(tip.value);
+      });
+    }
+  };
+};
+
+
+
+</script>
+
+<script>
+
+    function myCarlos() {
+       //console.log(d3.sankey);
+       //driver.draw(titanicData);
+       //ComponentData;
+       console.log("hello");
+       //console.log(titanicData);
+       //console.log(titanicData);
+
+       var i;
+       for (i = titanicData.flows.length -1; i >=0; i -= 1) {
+            console.log(titanicData.flows[i].thru[1].name);
+            if (titanicData.flows[i].thru[1].name = "Foundational Component") {
+      //        titanicData.flows.splice(i);
+            }
+       };
+
+
+// arr is now: [5, 6, 9]
+
+
+//       titanicData.flows.forEach (function(n) {
+         // n.forEach (function(m) { console.log(m); });
+  //        console.log(n.thru[0]);
+          //if (n.thru[0] = "Foundational Component") {
+          // console.log("yes");
+          // console.log(n.thru[1]);
+          //  titanicData.flows.splice(n);
+            //delete this;
+          //}
+    //   });
+       console.log("hello2");
+       //console.log(titanicData);
+
+       //   sum += item;
+       //}
+
+      // titanicData.nodes.forEach (function(n) {
+      //    //console.log(n);
+      //    if (n.disp[0] = "Foundational Component") {
+      //      console.log(n.disp[0]);
+      //      titanicData.disp.splice(n,1);
+            //delete this;
+      //    }
+       // });
+
+       driver.draw(titanicData);
+
+    }
+
+</script>
+
+<style>
+
+body {
+  /*color: #222;
+  font-family: "PT Serif", serif;
+  margin: 1em auto 1em auto;
+  position: relative;
+  width: 960px;*/
+
+  /*width: auto;
+  min-width: 640px;
+  max-width: 960px;*/
+
+  margin: 1em auto 1em auto;
+  position: relative;
+  width: 960px;
+
+
+  color: #000;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 100%;
+  /*text-align: center;
+  text-shadow: 0 1px 1px #b6701e;*/
+}
+
+
+
+div#readme {
+  width: 950px;
+}
+
+h1, h2, h3, h4, header, footer{
+  color: #000;
+  font-family: "PT Sans", sans-serif;
+  font-weight: normal;
+}
+
+h1#title {
+  font-size: 36px;
+  color: #000;
+  font-family: "PT Sans", sans-serif;
+  font-weight: bold;
+}
+
+div#readme h1 {
+  display: none;
+}
+
+header, footer {
+  font-size: small;
+}
+
+a {
+  color: steelblue;
+}
+
+a:not(:hover) {
+  text-decoration: none;
+}
+
+img {
+  max-width: 960px;
+}
+
+div.legend-item {
+  display: inline-block;
+}
+
+
+/*Diagram*/
+text {
+  font-family: "PT Sans", sans-serif;
+}
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+}
+
+path.link {
+    fill: none;
+    stroke: #b3b3b3;
+    stroke-opacity: .2;
+    stroke-linecap: butt;
+}
+
+path.highlight {
+    stroke: #00cccc;
+    stroke-opacity: .8;
+    /*z-index: 1000;*/
+}
+
+/*Tooltips */
+/*Credit: tooltip style sheets are based on c3js.org with MIT license (https://github.com/masayuki0812/c3/blob/master/LICENSE)*/
+#tooltip-container {
+  position: fixed;
+  pointer-events: none;
+}
+.tooltip {
+  border-collapse:collapse;
+  border-spacing:0;
+  background-color:#fff;
+  empty-cells:show;
+  -webkit-box-shadow: 7px 7px 12px -9px rgb(119,119,119);
+     -moz-box-shadow: 7px 7px 12px -9px rgb(119,119,119);
+          box-shadow: 7px 7px 12px -9px rgb(119,119,119);
+  opacity: 0.85;
+}
+.tooltip tr {
+  border:1px solid #CCC;
+}
+.tooltip td.head, .tooltip th {
+  background-color: #c7e1ff;
+  font-size:12px;
+  padding:2px 5px;
+  text-align:center;
+  color:#000;
+}
+.tooltip td {
+  font: 11px sans-serif;
+  padding: 3px 6px;
+  text-align:left;
+  background-color:#fff;
+  border-left:1px dotted #999;
+}
+.tooltip td.value{
+  text-align: right;
+}
+/*little colorful squre*/
+.tooltip td > span {
+  display: inline-block;
+  width: 2px;
+  height: 11px;
+  margin-right: 6px;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #f0f0f0;
+  -webkit-text-size-adjust: none;
+}
+
+.hljs,
+.hljs-subst,
+.hljs-tag .hljs-title,
+.nginx .hljs-title {
+  color: black;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-constant,
+.hljs-parent,
+.hljs-tag .hljs-value,
+.hljs-rule .hljs-value,
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-name,
+.haml .hljs-symbol,
+.ruby .hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.hljs-template_tag,
+.django .hljs-variable,
+.smalltalk .hljs-class,
+.hljs-addition,
+.hljs-flow,
+.hljs-stream,
+.bash .hljs-variable,
+.pf .hljs-variable,
+.apache .hljs-tag,
+.apache .hljs-cbracket,
+.tex .hljs-command,
+.tex .hljs-special,
+.erlang_repl .hljs-function_or_atom,
+.asciidoc .hljs-header,
+.markdown .hljs-header,
+.coffeescript .hljs-attribute,
+.tp .hljs-variable {
+  color: #800;
+}
+
+.smartquote,
+.hljs-comment,
+.hljs-annotation,
+.diff .hljs-header,
+.hljs-chunk,
+.asciidoc .hljs-blockquote,
+.markdown .hljs-blockquote {
+  color: #888;
+}
+
+.hljs-number,
+.hljs-date,
+.hljs-regexp,
+.hljs-literal,
+.hljs-hexcolor,
+.smalltalk .hljs-symbol,
+.smalltalk .hljs-char,
+.go .hljs-constant,
+.hljs-change,
+.lasso .hljs-variable,
+.makefile .hljs-variable,
+.asciidoc .hljs-bullet,
+.markdown .hljs-bullet,
+.asciidoc .hljs-link_url,
+.markdown .hljs-link_url {
+  color: #080;
+}
+
+.hljs-label,
+.ruby .hljs-string,
+.hljs-decorator,
+.hljs-filter .hljs-argument,
+.hljs-localvars,
+.hljs-array,
+.hljs-attr_selector,
+.hljs-important,
+.hljs-pseudo,
+.hljs-pi,
+.haml .hljs-bullet,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-envvar,
+.hljs-shebang,
+.apache .hljs-sqbracket,
+.nginx .hljs-built_in,
+.tex .hljs-formula,
+.erlang_repl .hljs-reserved,
+.hljs-prompt,
+.asciidoc .hljs-link_label,
+.markdown .hljs-link_label,
+.vhdl .hljs-attribute,
+.clojure .hljs-attribute,
+.asciidoc .hljs-attribute,
+.lasso .hljs-attribute,
+.coffeescript .hljs-property,
+.hljs-phony {
+  color: #88f;
+}
+
+.hljs-keyword,
+.hljs-id,
+.hljs-title,
+.hljs-built_in,
+.css .hljs-tag,
+.hljs-doctag,
+.smalltalk .hljs-class,
+.hljs-winutils,
+.bash .hljs-variable,
+.pf .hljs-variable,
+.apache .hljs-tag,
+.hljs-type,
+.hljs-typename,
+.tex .hljs-command,
+.asciidoc .hljs-strong,
+.markdown .hljs-strong,
+.hljs-request,
+.hljs-status,
+.tp .hljs-data,
+.tp .hljs-io {
+  font-weight: bold;
+}
+
+.asciidoc .hljs-emphasis,
+.markdown .hljs-emphasis,
+.tp .hljs-units {
+  font-style: italic;
+}
+
+.nginx .hljs-built_in {
+  font-weight: normal;
+}
+
+.coffeescript .javascript,
+.javascript .xml,
+.lasso .markup,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata {
+  opacity: 0.5;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+</header>
+
+<h1 id="title">BP22 Strategic Mapping</h1>
+
+<div id='canvas'></div>
+<div class="legend">
+<div class="legend-item" style="width:20%; text-align:start;">Moment</div>
+<div class="legend-item" style="width:20%; text-align:center;">Delivery Channel</div>
+<div class="legend-item" style="width:20%; text-align:center;">Journey</div>
+<div class="legend-item" style="width:20%; text-align:center;">Market</div>
+
+</div>
+
+<script>
+
+var driver = new SankeyDriver();
+//d3.json('asset/titanic-data-carlos-play2.json', function(titanicData){
+
+ var titanicData = {
+
+
+
+  "nodes": [
+    {"disp": "Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with", "name": "Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with"},
+    {"disp": "Referring back to research and any choices made", "name": "Referring back to research and any choices made"},
+    {"disp": "Committing to the vehicle and/or vehicle choice", "name": "Committing to the vehicle and/or vehicle choice"},
+    {"disp": "Considering a vehicle repurchase", "name": "Considering a vehicle repurchase"},
+    {"disp": "Receiving the vehicle", "name": "Receiving the vehicle"},
+    {"disp": "Waiting for the vehicle", "name": "Waiting for the vehicle"},
+    {"disp": "My vehicle needs my care and attention", "name": "My vehicle needs my care and attention"},
+    {"disp": "Exploring how the vehicle/service or brand can work harder for me", "name": "Exploring how the vehicle/service or brand can work harder for me"},
+    {"disp": "Trying to ensure the most suitable financial solution", "name": "Trying to ensure the most suitable financial solution"},
+    {"disp": "Trying to understand how the vehicle or service is performing", "name": "Trying to understand how the vehicle or service is performing"},
+    {"disp": "Committing to the vehicle and/or vehicle choice", "name": "Committing to the vehicle and/or vehicle choice"},
+
+    {"disp": "PACE", "name": "PACE"},
+    {"disp": "DEALER", "name": "DEALER"},
+    {"disp": "STRATEGY", "name": "STRATEGY"},
+    {"disp": "CCS", "name": "CCS"},
+
+    {"disp": "SEC", "name": "SEC"},
+    {"disp": "CMV", "name": "CMV"},
+    {"disp": "MDG", "name": "MDG"},
+    {"disp": "OTO", "name": "OTO"},
+    {"disp": "GAS", "name": "GAS"},
+
+    {"disp": "Brazil", "name": "Brazil"},
+    {"disp": "Canada", "name": "Canada"},
+    {"disp": "UK", "name": "UK"},
+    {"disp": "USA", "name": "USA"},
+    {"disp": "Japan", "name": "Japan"},
+    {"disp": "China", "name": "China"},
+    {"disp": "Mexico", "name": "Mexico"},
+    {"disp": "Thailand", "name": "Thailand"},
+    {"disp": "Infiniti", "name": "Infiniti"},
+
+    {"disp": "Own payment provider", "name": "Own payment provider"},
+    {"disp": "AS marketplace", "name": "AS marketplace"},
+    {"disp": "Chatbot", "name": "Chatbot"},
+    {"disp": "Dealer Inventory", "name": "Dealer Inventory"},
+    {"disp": "Credit pre-approval", "name": "Credit pre-approval"},
+    {"disp": "Nissan protect", "name": "Nissan protect"},
+    {"disp": "Marketplace", "name": "Marketplace"},
+    {"disp": "DST / Nissan Dealer +", "name": "DST / Nissan Dealer +"},
+    {"disp": " E-commerce solution to purchase a new vehicle online ", "name": " E-commerce solution to purchase a new vehicle online "},
+    {"disp": "Accessories ecommerce solution", "name": "Accessories ecommerce solution"},
+    {"disp": "Further econtracting ", "name": "Further econtracting "},
+    {"disp": "Ecommerce", "name": "Ecommerce"},
+    {"disp": "Buy@home", "name": "Buy@home"},
+    {"disp": "Sign the finance documents online", "name": "Sign the finance documents online"},
+    {"disp": "Order online without deposit", "name": "Order online without deposit"},
+    {"disp": "Electronic signature", "name": "Electronic signature"},
+    {"disp": "Document uploading (LOS)", "name": "Document uploading (LOS)"},
+    {"disp": "Digital payments", "name": "Digital payments"},
+    {"disp": "Project 1", "name": "Project 1"},
+    {"disp": "Project 2", "name": "Project 2"},
+    {"disp": "Project 3", "name": "Project 3"},
+    {"disp": "Project 4", "name": "Project 4"},
+    {"disp": "Project 5", "name": "Project 5"},
+    {"disp": "Project 6", "name": "Project 6"},
+    {"disp": "Project 7", "name": "Project 7"},
+    {"disp": "Project 8", "name": "Project 8"},
+    {"disp": "Project 9", "name": "Project 9"},
+    {"disp": "Project 10", "name": "Project 10"},
+    {"disp": "Project 11", "name": "Project 11"},
+    {"disp": "Project 12", "name": "Project 12"},
+    {"disp": "Project 13", "name": "Project 13"},
+    {"disp": "Project 14", "name": "Project 14"},
+    {"disp": "Project 15", "name": "Project 15"},
+    {"disp": "Project 16", "name": "Project 16"},
+    {"disp": "Project 17", "name": "Project 17"},
+    {"disp": "Project 18", "name": "Project 18"},
+    {"disp": "Project 19", "name": "Project 19"},
+    {"disp": "Project 20", "name": "Project 20"},
+    {"disp": "Project 21", "name": "Project 21"},
+    {"disp": "Project 22", "name": "Project 22"},
+    {"disp": "Project 23", "name": "Project 23"},
+    {"disp": "Project 24", "name": "Project 24"},
+    {"disp": "Project 25", "name": "Project 25"},
+    {"disp": "Project 26", "name": "Project 26"},
+    {"disp": "Project 27", "name": "Project 27"},
+    {"disp": "Project 28", "name": "Project 28"},
+    {"disp": "Project 29", "name": "Project 29"},
+    {"disp": "Project 30", "name": "Project 30"},
+    {"disp": "Project 31", "name": "Project 31"},
+    {"disp": "Project 32", "name": "Project 32"},
+    {"disp": "Project 33", "name": "Project 33"},
+    {"disp": "Project 34", "name": "Project 34"},
+    {"disp": "Project 35", "name": "Project 35"},
+    {"disp": "Project 36", "name": "Project 36"},
+    {"disp": "Project 37", "name": "Project 37"},
+    {"disp": "Project 38", "name": "Project 38"},
+    {"disp": "Project 39", "name": "Project 39"},
+    {"disp": "Project 40", "name": "Project 40"},
+    {"disp": "Project 41", "name": "Project 41"},
+    {"disp": "Project 42", "name": "Project 42"},
+    {"disp": "Project 43", "name": "Project 43"},
+    {"disp": "Project 44", "name": "Project 44"},
+    {"disp": "Project 45", "name": "Project 45"},
+    {"disp": "Project 46", "name": "Project 46"},
+    {"disp": "Project 47", "name": "Project 47"},
+    {"disp": "Project 48", "name": "Project 48"},
+    {"disp": "Project 49", "name": "Project 49"},
+    {"disp": "Project 50", "name": "Project 50"},
+    {"disp": "Project 51", "name": "Project 51"},
+    {"disp": "Project 52", "name": "Project 52"},
+    {"disp": "Project 53", "name": "Project 53"},
+    {"disp": "Project 54", "name": "Project 54"},
+    {"disp": "Project 55", "name": "Project 55"},
+    {"disp": "Project 56", "name": "Project 56"},
+    {"disp": "Project 57", "name": "Project 57"},
+
+  ],
+  "flows": [
+    {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","Own payment provider"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","AS marketplace"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","Chatbot"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","Dealer Inventory"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","Credit pre-approval"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","Nissan protect"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","Marketplace"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Brazil","DST / Nissan Dealer +"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Canada"," E-commerce solution to purchase a new vehicle online "], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Canada","Accessories ecommerce solution"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Canada","Further econtracting "], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Canada","Ecommerce"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Buy@home"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Sign the finance documents online"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Order online without deposit"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Electronic signature"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Document uploading (LOS)"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Digital payments"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","UK","Project 1"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","USA","Project 2"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Japan","Project 3"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","China","Project 4"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Mexico","Project 5"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Thailand","Project 6"], "value": 1},
+  {"thru": ["Committing to the vehicle and/or vehicle choice","PACE","SEC","Infiniti","Project 7"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","UK","Project 11"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","USA","Project 12"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","Japan","Project 13"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","China","Project 14"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","Mexico","Project 15"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","Thailand","Project 16"], "value": 1},
+  {"thru": ["Considering a vehicle repurchase","PACE","SEC","Infiniti","Project 17"], "value": 1},
+  {"thru": ["Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with","PACE","CMV","UK","Project 26"], "value": 1},
+  {"thru": ["Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with","PACE","CMV","USA","Project 27"], "value": 1},
+  {"thru": ["Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with","PACE","CMV","Japan","Project 28"], "value": 1},
+  {"thru": ["Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with","PACE","CMV","China","Project 29"], "value": 1},
+  {"thru": ["Experiencing how a certain type of vehicle & set-up may feel to drive, own and live with","PACE","CMV","Mexico","Project 30"], "value": 1},
+  {"thru": ["Exploring how the vehicle/service or brand can work harder for me","PACE","MDG","Thailand","Project 31"], "value": 1},
+  {"thru": ["Exploring how the vehicle/service or brand can work harder for me","PACE","MDG","Infiniti","Project 32"], "value": 1},
+  {"thru": ["My vehicle needs my care and attention","PACE","GAS","UK","Project 33"], "value": 1},
+  {"thru": ["My vehicle needs my care and attention","PACE","GAS","USA","Project 34"], "value": 1},
+  {"thru": ["My vehicle needs my care and attention","PACE","GAS","Japan","Project 35"], "value": 1},
+  {"thru": ["My vehicle needs my care and attention","PACE","GAS","China","Project 36"], "value": 1},
+  {"thru": ["Receiving the vehicle","PACE","OTO","Mexico","Project 37"], "value": 1},
+  {"thru": ["Receiving the vehicle","PACE","OTO","Thailand","Project 38"], "value": 1},
+  {"thru": ["Receiving the vehicle","PACE","OTO","Infiniti","Project 39"], "value": 1},
+  {"thru": ["Receiving the vehicle","PACE","OTO","UK","Project 40"], "value": 1},
+  {"thru": ["Referring back to research and any choices made","PACE","CMV","USA","Project 41"], "value": 1},
+  {"thru": ["Referring back to research and any choices made","PACE","CMV","Japan","Project 42"], "value": 1},
+  {"thru": ["Trying to ensure the most suitable financial solution","PACE","SEC","China","Project 43"], "value": 1},
+  {"thru": ["Trying to ensure the most suitable financial solution","PACE","SEC","Mexico","Project 44"], "value": 1},
+  {"thru": ["Trying to understand how the vehicle or service is performing","PACE","MDG","Thailand","Project 45"], "value": 1},
+  {"thru": ["Trying to understand how the vehicle or service is performing","PACE","MDG","Infiniti","Project 46"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","UK","Project 47"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","USA","Project 48"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","Japan","Project 49"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","China","Project 50"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","Mexico","Project 51"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","Thailand","Project 52"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","Infiniti","Project 53"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","UK","Project 54"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","USA","Project 55"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","Japan","Project 56"], "value": 1},
+  {"thru": ["Waiting for the vehicle","PACE","OTO","China","Project 57"], "value": 1},
+  ]
+
+ };
+
+  console.log(titanicData);
+  var margin = {
+    top: 0, bottom: 10, left: 0, right: 10,
+  };
+  var size = {
+    //width: 1050, height: 2000,
+    width: 1200, height: 1800,
+  }
+  driver.prepare(d3.select("#canvas"), size, margin);
+  driver.draw(titanicData);
+
+  //var ComponentData = titanicData;
+  //sendBeacon("sankey.draw");
+//});
+
+</script>
+
+<footer>
+</footer>
+</body>
+</html>
