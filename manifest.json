@@ -1,9 +1,9 @@
 {
-  "id": "metric-first-pivot-table",
-  "name": "metric-first-pivot-table",
-  "description": "A custom pivot table that displays metric names as the first column.",
+  "id": "custom-pivot-table",
+  "label": "Custom Pivot Table",
+  "description": "A custom pivot table visualization.",
   "resources": {
-    "js": ["script.js"],
-    "css": ["styles.css"]
+    "js": ["https://raw.githubusercontent.com/fudztown/NCX/main/script.js"],
+    "css": ["https://raw.githubusercontent.com/fudztown/NCX/main/styles.css"]
   }
 }
