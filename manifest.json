@@ -1,9 +1,25 @@
 {
-  "id": "custom-pivot-table",
-  "label": "Custom Pivot Table",
-  "description": "A custom pivot table visualization.",
-  "resources": {
-    "js": ["https://raw.githubusercontent.com/fudztown/NCX/main/script.js"],
-    "css": ["https://raw.githubusercontent.com/fudztown/NCX/main/styles.css"]
-  }
+  "name": "Globant Visualization Package",
+  "organization": "Globant Ltd.",
+  "description": "A custom visualization package for pivot tables.",
+  "logoUrl": "https://example.com/logo.png",
+  "organizationUrl": "https://example.com",
+  "supportUrl": "https://example.com/support",
+  "privacyPolicyUrl": "https://example.com/privacy",
+  "termsOfServiceUrl": "https://example.com/terms",
+  "packageUrl": "https://raw.githubusercontent.com/fudztown/NCX/main/manifest.json",
+  "devMode": true,
+  "components": [
+    {
+      "id": "pivot-table",
+      "name": "Custom Pivot Table",
+      "description": "A custom pivot table visualization that allows for metric names as row headers.",
+      "iconUrl": "https://example.com/pivot-icon.png",
+      "infoUrl": "https://example.com/pivot-info",
+      "resource": {
+        "js": "https://raw.githubusercontent.com/fudztown/NCX/main/script.js",
+        "css": "https://raw.githubusercontent.com/fudztown/NCX/main/styles.css"
+      }
+    }
+  ]
 }
