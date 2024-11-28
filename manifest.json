@@ -1,0 +1,9 @@
+{
+  "id": "metric-first-pivot-table",
+  "name": "metric-first-pivot-table",
+  "description": "A custom pivot table that displays metric names as the first column.",
+  "resources": {
+    "js": ["script.js"],
+    "css": ["styles.css"]
+  }
+}

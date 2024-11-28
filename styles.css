@@ -1,0 +1,73 @@
+/* General Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Header Row */
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Data Rows */
+td {
+  text-align: right; /* Align numbers to the right */
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Highlighted Total Rows */
+td.total-row {
+  font-weight: bold;
+  background-color: #e6f7ff; /* Light blue background */
+  color: #000; /* Black text */
+}
+
+/* Highlighted Margin Rows */
+td.margin-row {
+  background-color: #fde9d9; /* Light orange background */
+  font-weight: bold;
+  color: #000; /* Black text */
+}
+
+/* Alternating Row Colors */
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light grey for alternating rows */
+}
+
+/* Column Totals Styling */
+th.column-total, td.column-total {
+  font-weight: bold;
+  background-color: #f1f1f1; /* Light grey background */
+}
+
+/* Subsection Headers (e.g., Ongoing, Farming) */
+th.subsection-header {
+  font-weight: bold;
+  background-color: #d9f2d9; /* Light green background */
+  text-align: left; /* Align text to the left */
+}
+
+/* Center Alignment for Specific Columns */
+th.center-align, td.center-align {
+  text-align: center;
+}
+
+/* Percentage Values Styling */
+td.percentage {
+  color: #0073e6; /* Blue for percentage values */
+  font-weight: bold;
+}
+
+/* Conditional Formatting for Negative Values */
+td.negative {
+  color: #e60000; /* Red for negative values */
+  font-weight: bold;
+}
