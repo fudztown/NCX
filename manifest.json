@@ -1,24 +1,18 @@
 {
-  "name": "Globant Visualization Package",
-  "organization": "Globant Ltd.",
-  "description": "A custom visualization package for pivot tables.",
-  "logoUrl": "https://example.com/logo.png",
-  "organizationUrl": "https://example.com",
-  "supportUrl": "https://example.com/support",
-  "privacyPolicyUrl": "https://example.com/privacy",
-  "termsOfServiceUrl": "https://example.com/terms",
-  "packageUrl": "https://raw.githubusercontent.com/fudztown/NCX/main/manifest.json",
+  "name": "NCX Visualization Package",
+  "organization": "NCX Inc.",
+  "description": "Custom visualizations for Looker Studio.",
+  "packageUrl": "https://67487a99b738ceb50724db7a--eclectic-strudel-189c98.netlify.app/manifest.json",
   "devMode": true,
   "components": [
     {
       "id": "pivot-table",
       "name": "Custom Pivot Table",
-      "description": "A custom pivot table visualization that allows for metric names as row headers.",
-      "iconUrl": "https://example.com/pivot-icon.png",
-      "infoUrl": "https://example.com/pivot-info",
+      "description": "A pivot table visualization.",
+      "iconUrl": "https://example.com/icon.png",
       "resource": {
-        "js": "https://raw.githubusercontent.com/fudztown/NCX/main/script.js",
-        "css": "https://raw.githubusercontent.com/fudztown/NCX/main/styles.css"
+        "js": "https://67487a99b738ceb50724db7a--eclectic-strudel-189c98.netlify.app/script.js",
+        "css": "https://67487a99b738ceb50724db7a--eclectic-strudel-189c98.netlify.app/styles.css"
       }
     }
   ]
